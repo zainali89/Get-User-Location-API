@@ -1,0 +1,77 @@
+<?php
+
+
+function get_ip()
+
+{
+
+	if(isset($_SERVER['HTTP_CLIENT_IP']))
+
+	{
+
+		return $_SERVER['HTTP_CLIENT_IP'];
+
+	}
+
+	else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+
+	{
+
+		return $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+	}
+
+	else
+
+	{
+
+		return (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR']: '');
+
+	}
+
+}
+
+
+
+
+$ip =get_ip();
+
+// USE AN API TO get visitor dara
+
+$query = @unserialize (file_get_contents('http://ip-api.com/php/'.$ip));
+
+
+if($query && $query['status'] == 'success')
+
+{
+
+	/* echo "ISP:".$query['isp']."<br/>";
+
+	echo "COUNTRY:".$query['country']."<br/>";
+
+	echo "COUNTRY CODE:".$query['countryCode']."<br/>";
+
+	echo "REGION NAME:".$query['regionName']."<br/>";
+
+	echo "CITY:".$query['city']."<br/>";
+
+	echo "ZIP:".$query['zip']."<br/>"; */
+
+	//echo "LATITUDE:".$query['latitude']."<br/>";
+
+	//echo "LONGITUDE:".$query['longitude']."<br/>";
+
+	print_r($query);
+
+}
+
+?>
+
+	
+
+	<!-- End of Zain did this -->
+
+
+
+Array ( [status] => success [country] => Pakistan [countryCode] => PK [region] => PB [regionName] => Punjab [city] => Lahore [zip] => 54000 
+[lat] => 31.4859 [lon] => 74.3735 [timezone] => Asia/Karachi [isp] => Telenor Pakistan [org] => [as] => AS24499 Telenor Pakistan [query] => 103.7.79.72 )
